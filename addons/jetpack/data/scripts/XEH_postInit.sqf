@@ -1,0 +1,6 @@
+call DG1_fnc_Jetpack;
+
+//Keybinds
+[["Degenerates Extras","Jetpacks"],"DG1_Jetpack_Thrust","Use Jetpack",{if (typeOf unitBackpack player in DG1_Jetpack_VAR_Backpacks && !(player getVariable ["ACE_isUnconscious", false])) then {DG1_Jetpack_VAR_Thrust = true;} else {DG1_Jetpack_VAR_Thrust = false;};},{DG1_Jetpack_VAR_Thrust = false}] call cba_fnc_addKeybind;
+[["Degenerates Extras","Jetpacks"],"DG1_Jetpack_Thrust_Toggle","Toggle Jetpack",{if (typeOf unitBackpack player in DG1_Jetpack_VAR_Backpacks && !(player getVariable ["ACE_isUnconscious", false])) then {DG1_Jetpack_VAR_Thrust = !DG1_Jetpack_VAR_Thrust;} else {DG1_Jetpack_VAR_Thrust = false;};},{}] call cba_fnc_addKeybind;
+[["Degenerates Extras","Jetpacks"],"DG1_Jetpack_Brake","Emergency Airbrakes",{if (typeOf unitBackpack player in DG1_Jetpack_VAR_Backpacks) then {if !(player getVariable ["ACE_isUnconscious", false]) then {DG1_Jetpack_VAR_Brake = !DG1_Jetpack_VAR_Brake;};} else {DG1_Jetpack_VAR_Brake = false;}; if (DG1_Jetpack_VAR_Brake) then {DG1_Jetpack_VAR_Brake_Text = "\nEmergency Airbrakes Active";} else {DG1_Jetpack_VAR_Brake_Text = "";};},{}] call cba_fnc_addKeybind;
