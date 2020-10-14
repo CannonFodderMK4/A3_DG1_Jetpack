@@ -13,8 +13,24 @@ if (GVAR(Thrust)) then {
 		private _z = _z * ((100 - _height)/100);
 		private _velMax = 1.8/(_x + _y + _z);
 		private _vel = [0,0,0];
-		while {alive _this && GVAR(Thrust) && !(_this getVariable ["ACE_isUnconscious", false]) && typeOf unitBackpack player in GVAR(Backpacks)} do {
-			if ((GVAR(Fuel) > 0 || !GVAR(Fuel_Enable))) then {
+		call FUNC(sound);
+		if (GVAR(Spool) > 0 && {!GVAR(Brake) && !GVAR(Spool_Down)}) then {
+			_startTime = time;
+			waitUntil {
+				sleep 0.1;
+				if (GVAR(Fuel_Enable)) then {
+					if (GVAR(Fuel) > 0.1) then {
+						GVAR(Fuel) = GVAR(Fuel) - 0.1;
+					} else {
+						GVAR(Fuel) = 0;
+					};
+				};
+				cutRsc ["DG1_Jetpack_RSC_Counter","PLAIN",-1,false];
+				time >= (_startTime + GVAR(Spool))
+			};
+		};
+		while {alive _this && {GVAR(Thrust) && {!(_this getVariable ["ACE_isUnconscious", false]) && {typeOf unitBackpack _this in GVAR(Backpacks)}}}} do {
+			if (GVAR(Fuel) > 0 || {!GVAR(Fuel_Enable)}) then {
 				_xMove = 0;
 				_yMove = 0;
 				_x = 0;

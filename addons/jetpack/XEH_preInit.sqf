@@ -16,6 +16,9 @@ GVAR(Fuel_Objects) = [];
 GVAR(Fuel) = GVAR(Fuel_Max);
 GVAR(Refuel) = false;
 GVAR(Thrust) = false;
+GVAR(Sound_Play) = false;
+GVAR(Spool_Down) = false;
+
 
 [
 	"DG1_Jetpack_List",
@@ -28,6 +31,97 @@ GVAR(Thrust) = false;
 		params ["_value"];
 		_array = _value splitString ", ";
 		GVAR(Backpacks) = _array;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_Start",
+	"EDITBOX",
+	["Jetpack Start Sound Class Name","No quotes, only add one as defined in CfgSounds in your description.ext (or you could use one defined by another mod), no default sound atm. If undefined will not attempt to play"],
+	["Degenerates Extras","Jetpacks"],
+	"",
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_Start) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_Start_Length",
+	"SLIDER",
+	["Jetpack Start Sound length (secs)","Set to length of audio file to allow continuous playback. Sounds longer than 30 secs will overlap."],
+	["Degenerates Extras","Jetpacks"],
+	[0,30,1,1],
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_Start_Length) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_Continue",
+	"EDITBOX",
+	["Jetpack Running Sound Class Name","No quotes, only add one as defined in CfgSounds in your description.ext (or you could use one defined by another mod), no default sound atm. If undefined will not attempt to play, must be defined for Start and Stop to also play"],
+	["Degenerates Extras","Jetpacks"],
+	"",
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_Continue) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_Continue_Length",
+	"SLIDER",
+	["Jetpack Running Sound length (secs)","Set to length of audio file to allow continuous playback. Sounds longer than 30 secs will overlap."],
+	["Degenerates Extras","Jetpacks"],
+	[0,30,1,1],
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_Continue_Length) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_End",
+	"EDITBOX",
+	["Jetpack Stop Sound Class Name","No quotes, only add one as defined in CfgSounds in your description.ext (or you could use one defined by another mod), no default sound atm. If undefined will not attempt to play"],
+	["Degenerates Extras","Jetpacks"],
+	"",
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_End) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Sound_End_Length",
+	"SLIDER",
+	["Jetpack Stop Sound length (secs)","Set to length of audio file to allow continuous playback. Sounds longer than 30 secs will overlap."],
+	["Degenerates Extras","Jetpacks"],
+	[0,30,1,1],
+	true,
+	{
+		params ["_value"];
+		GVAR(Sound_End_Length) = _value;
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"DG1_Jetpack_Spool",
+	"SLIDER",
+	["[EXPERIMENTAL: Use at own risk] Jetpack Spool up","If this is greater than 0 then the Jetpack will wait until the throttle has been active for this time before generating lift (This does not affect Airbrakes)"],
+	["Degenerates Extras","Jetpacks"],
+	[0,30,0,1],
+	true,
+	{
+		params ["_value"];
+		GVAR(Spool) = _value;
 	}
 ] call CBA_fnc_addSetting;
 
