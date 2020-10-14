@@ -8,8 +8,11 @@ if (GVAR(Brake)) then {
 		private _deceleration = (vectorMagnitude (velocityModelSpace _this)) * 0.25;
 		private _vel = (vectorNormalized (velocityModelSpace _this)) vectorMultiply _deceleration;
 		private _fuelUse = ((_deceleration / 1.8) * 0.1) * (((getPosVisual _this) select 2)/10);
-		while {alive _this && GVAR(Brake) && typeOf unitBackpack player in GVAR(Backpacks)} do {
-			if (GVAR(Fuel) > 0 || !GVAR(Fuel_Enable)) then {
+		while {alive _this && {GVAR(Brake) && {typeOf unitBackpack player in GVAR(Backpacks)}}} do {
+			if (GVAR(Fuel) > 0 || {!GVAR(Fuel_Enable)}) then {
+				if (((getPosVisual _this) select 2) > 0.1 && !GVAR(Sound_Play)) then {
+					call FUNC(sound);
+				};
 				_deceleration = (vectorMagnitude (velocityModelSpace _this)) * 0.25;
 				_vel = (vectorNormalized (velocityModelSpace _this)) vectorMultiply _deceleration;
 				_this setVelocityModelSpace ((velocityModelSpace _this) vectorDiff _vel);
